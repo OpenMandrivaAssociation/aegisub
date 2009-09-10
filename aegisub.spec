@@ -4,7 +4,7 @@
 Summary:	Comprehensive video subtitle creation tool
 Name:		aegisub
 Version:	2.1.6
-Release:	%{mkrel 0.%{snap}.1}
+Release:	%{mkrel 0.%{snap}.2}
 # They don't seem to do stable release tarballs, so I'm not bothering
 # to have a conditional for them yet. - AdamW 2009/01
 Source0:	http://www.mahou.org/~verm/aegisub/%{name}-%{snap}.tar.lzma
