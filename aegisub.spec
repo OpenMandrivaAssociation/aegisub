@@ -1,13 +1,8 @@
-%define snap	2618
-%define _disable_ld_no_undefined	1
-
 Summary:	Comprehensive video subtitle creation tool
 Name:		aegisub
-Version:	2.1.6
-Release:	%{mkrel 0.%{snap}.2}
-# They don't seem to do stable release tarballs, so I'm not bothering
-# to have a conditional for them yet. - AdamW 2009/01
-Source0:	http://www.mahou.org/~verm/aegisub/%{name}-%{snap}.tar.lzma
+Version:	2.1.8
+Release:	%mkrel 1
+Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.gz
 # From upstream via Gentoo: http://bugs.gentoo.org/174191
 Source1:	aegisub.png
 # Fix underlinking - AdamW 2009/01
@@ -21,7 +16,8 @@ Patch1:		aegisub-2618-ffmpegdisable.patch
 # this patch sets it to an arbitrary string which is sed'ed out in
 # prep - AdamW 2009/01
 Patch2:		aegisub-2618-svnrev.patch
-URL:		http://aegisub.cellosoft.com
+Patch5:		aegisub-2.1.8-wxexception.patch
+URL:		http://www.aegisub.org/
 License:	BSD
 Group:		Video
 # Upstream dependency reference: http://www.malakith.net/aegiwiki/Unix_Instructions
@@ -44,30 +40,17 @@ Aegisub is a powerful and comprehensive tool for creating subtitles
 for video files.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .underlink
-%patch1 -p1 -b .ffmpeg
-%patch2 -p1 -b .svnrev
-
-# This goes along with svnrev.patch - AdamW 2009/01
-sed -i -e 's,__MDV_SVN_REV,%{snap},g' configure.in
+%setup -q -n %{name}-%{version}
+%patch5 -p0
 
 %build
-# needed for underlink.patch, ffmpegdisable.patch and svnrev.patch
-# - AdamW 2009/01
-./autogen.sh
-
-# According to upstream, there's no point in using the old auto3,
-# since we have lua 5.1 for auto4 support. They also say that OpenAL,
-# PortAudio and PulseAudio all don't work well, and recommend using
-# the Alsa backend. They list Perl and Ruby scripting as both
-# incomplete and unmaintained and say everyone just uses auto4.
-# - AdamW 2009/01
-%configure2_5x --with-wx-config=wx-config-unicode \
+export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS"
+%configure2_5x \
+	--enable-debug-exceptions \
+	--with-wx-config=wx-config-unicode \
 	--without-lua50 \
 	--without-openal \
 	--without-portaudio \
-	--without-pulseaudio \
 	--without-perl \
 	--without-ruby
 %make
