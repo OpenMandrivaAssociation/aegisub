@@ -4,6 +4,7 @@ Version:	2.1.8
 Release:	%mkrel 1
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.gz
 Patch0:		aegisub-2.1.8-link.patch
+Patch1:		aegisub-2.1.8-external-libass.patch
 Patch5:		aegisub-2.1.8-wxexception.patch
 URL:		http://www.aegisub.org/
 License:	BSD
@@ -19,6 +20,7 @@ BuildRequires:	lua-devel
 BuildRequires:	fontconfig-devel
 BuildRequires:	hunspell-devel
 BuildRequires:	pulseaudio-devel
+BuildRequires:	libass-devel
 BuildRequires:	libgomp-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -29,6 +31,7 @@ for video files.
 %prep
 %setup -qn %{name}-%{version}
 %patch0 -p0 -b .link
+%patch1 -p0 -b .ass
 %patch5 -p0
 
 %build
@@ -37,6 +40,7 @@ export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS"
 %configure2_5x \
 	--enable-debug-exceptions \
 	--with-wx-config=wx-config-unicode \
+	--with-external-libass \
 	--without-lua50 \
 	--without-openal \
 	--without-portaudio \
