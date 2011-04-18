@@ -38,7 +38,7 @@ for video files.
 autoreconf -fi
 export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS"
 %configure2_5x \
-	--enable-debug-exceptions \
+	--target=%_target_platform \
 	--with-wx-config=wx-config-unicode \
 	--with-external-libass \
 	--without-lua50 \
