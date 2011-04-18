@@ -5,8 +5,7 @@ Release:	%mkrel 1
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.gz
 # From upstream via Gentoo: http://bugs.gentoo.org/174191
 Source1:	aegisub.png
-# Fix underlinking - AdamW 2009/01
-Patch0:		aegisub-2618-underlink.patch
+Patch0:		aegisub-2.1.8-link.patch
 # Fix disabling ffmpegsource (not needed for Cooker build, but what
 # the hell, it doesn't hurt anything) - AdamW 2009/01
 Patch1:		aegisub-2618-ffmpegdisable.patch
@@ -41,9 +40,11 @@ for video files.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0 -b .link
 %patch5 -p0
 
 %build
+autoreconf -fi
 export CXXFLAGS="%optflags -D__STDC_CONSTANT_MACROS"
 %configure2_5x \
 	--enable-debug-exceptions \
