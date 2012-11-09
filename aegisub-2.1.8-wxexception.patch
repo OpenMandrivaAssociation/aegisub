@@ -1,0 +1,13 @@
+--- src/main.cpp.orig	2011-04-18 11:02:16.000000000 +0200
++++ src/main.cpp	2011-04-18 11:02:39.000000000 +0200
+@@ -140,8 +140,10 @@
+ 		// Crash handling
+ #if !defined(_DEBUG) || defined(WITH_EXCEPTIONS)
+ 		StartupLog(_T("Install exception handler"));
++#if wxUSE_ON_FATAL_EXCEPTION
+ 		wxHandleFatalExceptions(true);
+ #endif
++#endif
+ 
+ 		// Set config file
+ 		StartupLog(_T("Load configuration"));
