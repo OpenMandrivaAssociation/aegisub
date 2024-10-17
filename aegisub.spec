@@ -6,7 +6,7 @@ Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.gz
 Patch0:		aegisub-2.1.8-link.patch
 Patch1:		aegisub-2.1.8-external-libass.patch
 Patch5:		aegisub-2.1.8-wxexception.patch
-URL:		http://www.aegisub.org/
+URL:		https://www.aegisub.org/
 License:	BSD
 Group:		Video
 BuildRequires:	intltool
